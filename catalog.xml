@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/home/wookie/NetBeansProjects/epam3XML/src/epam3xml/xml/greenhouse.xsd" uri="xml-resources/jaxb/flowerBind/greenhouse.xsd"/>
+    <system systemId="file:/home/wookie/NetBeansProjects/epam3XML/src/xml/greenhouse.xsd" uri="xml-resources/jaxb/GreenhouseBinding/greenhouse.xsd"/>
+</catalog>
