@@ -21,16 +21,23 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 /**
- *
+ * Class implements XPath parser of XML file.
  * @author wookie
  */
 public class Xpath {
     private Document document;
     
+    /**
+     * Method initiate necessary variables for XPath.
+     * @param filename path to XML file. 
+     * @throws SAXException
+     * @throws ParserConfigurationException
+     * @throws IOException 
+     */
     public void initParser(String filename) throws SAXException, ParserConfigurationException, IOException {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
-        document = db.parse( new File(filename) );
+        document = db.parse(new File(filename));
         //Element root = document.getDocumentElement();
     }
     
@@ -53,6 +60,12 @@ public class Xpath {
 //         }
     }
     
+    /**
+     * Finds XML tag value using XPath. 
+     * @param flowerId id of a flower.
+     * @return String value of tag "flower" with current flowerId.
+     * @throws XPathExpressionException 
+     */
     public String getFlowerName(int flowerId) throws XPathExpressionException {
         XPathFactory xPathFactory = XPathFactory.newInstance();
 	XPath xpath = xPathFactory.newXPath(); 
