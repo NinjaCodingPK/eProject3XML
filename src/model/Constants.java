@@ -6,7 +6,7 @@
 package model;
 
 /**
- *
+ * Interface contains constant values.
  * @author wookie
  */
 public interface Constants {

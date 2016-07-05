@@ -24,6 +24,9 @@ import org.xml.sax.helpers.XMLReaderFactory;
  */
 public class SaxParser {
     private Greenhouse greenhouse;
+    /**
+     * temp value which handle current text value of XML tag.
+     */
     private String temp;
     
     
@@ -135,6 +138,11 @@ public class SaxParser {
         }
     }
     
+    /**
+     * Cast XML file into generated Java class using ContentHandler and XMLReader.
+     * @param in InputStram of XML file.
+     * @throws Exception 
+     */
     public void parse( InputStream in ) throws Exception{
         XMLReader reader = XMLReaderFactory.createXMLReader();
         SaxHandler contentHandler = new SaxHandler();

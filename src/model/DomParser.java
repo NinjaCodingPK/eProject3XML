@@ -11,22 +11,32 @@ import generated.Greenhouse.Flower.GrowingTips;
 import generated.Greenhouse.Flower.VisualParameters;
 import generated.ObjectFactory;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 /**
- *
+ * Class implements DOM parser of XML file.
  * @author wookie
  */
 public class DomParser {
     private Greenhouse greenhouse;
     
-    public void parse( InputStream in) throws Exception {
+    /**
+     * Cast XML file into generated Java class.
+     * @param in InputStream of XML file. 
+     * @throws javax.xml.parsers.ParserConfigurationException 
+     * @throws org.xml.sax.SAXException 
+     * @throws java.io.IOException 
+     */
+    public void parse(InputStream in) throws ParserConfigurationException, SAXException, IOException  {
         greenhouse = new ObjectFactory().createGreenhouse();
         
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -84,6 +94,11 @@ public class DomParser {
         } 
     }
 
+    /**
+     * Method fills VisualParameters instance with data from XML file.
+     * @param el DOM element
+     * @return VlisualParameters instance.
+     */
     private VisualParameters parseVisualParameters(Element el) {
         VisualParameters visualParam = new ObjectFactory().createGreenhouseFlowerVisualParameters();
            
@@ -110,6 +125,11 @@ public class DomParser {
         return visualParam;
     }
     
+    /**
+     * Method fills GrowingTips instance with data from XML file.
+     * @param el DOM element
+     * @return GrowingTips instance.
+     */
     private GrowingTips parseGrowingTips(Element el) {
          GrowingTips growingTips = new ObjectFactory().createGreenhouseFlowerGrowingTips();
            

@@ -17,28 +17,22 @@ import javax.xml.stream.XMLStreamReader;
 import org.xml.sax.SAXException;
 
 /**
- *
+ * Class implements StAX parser using ContentHandler from SAX parser.
  * @author wookie
  */
 public class StaxParser extends SaxParser{
-    //private Greenhouse greenhouse;
-    
-//    class StaxHandler extends SaxParser.new SaxHandler() {
-//        
-//        
-//    }
-    
-//    greenhouse.getFlower(); //new ArrayList<Greenhouse.Flower>()
-//        XMLReader reader = XMLReaderFactory.createXMLReader();
-//        SaxHandler contentHandler = new SaxHandler();
-//        reader.setContentHandler(contentHandler);
-//        reader.parse(new InputSource(in));
+
+    /**
+     * Cast XML file into generated Java class using ContentHandler and XMLStreamReader.
+     * @param in InputStram of XML file. 
+     * @throws javax.xml.stream.XMLStreamException 
+     * @throws org.xml.sax.SAXException 
+     */
     @Override
-    public void parse(InputStream input) throws XMLStreamException, SAXException {
+    public void parse(InputStream in) throws XMLStreamException, SAXException {
         XMLInputFactory factory = XMLInputFactory.newInstance();
-        XMLStreamReader r = factory.createXMLStreamReader(input);
+        XMLStreamReader r = factory.createXMLStreamReader(in);
         SaxHandler handler = new SaxHandler();
-        //List<Greenhouse.Flower> flowers = new ArrayList<>();
         
         try {
             int event = r.getEventType();
@@ -46,45 +40,28 @@ public class StaxParser extends SaxParser{
                 switch (event) {
                 case XMLStreamConstants.START_DOCUMENT:
                     handler.startDocument();
-                    //greenhouse = new ObjectFactory().createGreenhouse();
-//                    flowers.add(new ObjectFactory().createGreenhouseFlower());
-//                    System.out.println("Start Document.");
                     break;
-                case XMLStreamConstants.START_ELEMENT:
-                    
+                case XMLStreamConstants.START_ELEMENT: 
                     handler.startElement(null, r.getName().toString(), null, null);
-//                    System.out.println("Start Element: " + r.getName());
-//                    for(int i = 0, n = r.getAttributeCount(); i < n; ++i)
-//                        System.out.println("Attribute: " + r.getAttributeName(i) 
-//                              + "=" + r.getAttributeValue(i));
-                  
                     break;
-            case XMLStreamConstants.CHARACTERS:
-                  if (r.isWhiteSpace())
-                        break;
-                  else {
-                      //System.out.println("CHARACTER "  + r.getText());
-                      handler.characters(r.getText().toCharArray(), 0, r.getText().toCharArray().length);
-                  }
-                  
-                  //System.out.println("Text: " + r.getText());
-                  break;
-            case XMLStreamConstants.END_ELEMENT:
-                 handler.endElement(null, r.getName().toString(), null);
-                  //System.out.println("End Element:" + r.getName());
-                  break;
-            case XMLStreamConstants.END_DOCUMENT:
-                 // System.out.println("End Document.");
-                  break;
-            }
+                case XMLStreamConstants.CHARACTERS:
+                    if (!r.isWhiteSpace())
+                        handler.characters(r.getText().toCharArray(), 0, r.getText().toCharArray().length);
+                    break;
+                case XMLStreamConstants.END_ELEMENT:
+                    handler.endElement(null, r.getName().toString(), null);
+                    break;
+                case XMLStreamConstants.END_DOCUMENT:
+                    break;
+                }
             
-            if (!r.hasNext())
-                  break;
+                if (!r.hasNext())
+                    break;
 
-            event = r.next();
-      }
-} finally {
-      r.close();
-}
+                event = r.next();
+            }
+        } finally {
+            r.close();
+        }
     }
 }
