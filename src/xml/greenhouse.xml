@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<greenhouse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="greenhouse.xsd">
+    <flower id="1">
+        <name>Flower1</name>
+        <soil>Sod-podzolic</soil>
+        <origin>Ukraine</origin>
+        <visualParameters>
+            <stemColor>Green</stemColor>
+            <leafColor>Blue</leafColor>
+            <size>Middle</size>
+        </visualParameters>
+        <growingTips>
+            <temperature>17</temperature>
+            <lighting>Require</lighting>
+            <watering>3</watering>
+        </growingTips>
+        <multiplying>Leaf</multiplying>
+    </flower>
+    
+    <flower id = "2">
+        <name>Flower2</name>
+        <soil>Podzolic</soil>
+        <origin>Ukraine</origin>
+        <visualParameters>
+            <stemColor>Green</stemColor>
+            <leafColor>Red</leafColor>
+            <size>Small</size>
+        </visualParameters>
+        <growingTips>
+            <temperature>20</temperature>
+            <lighting>Not require</lighting>
+            <watering>3</watering>
+        </growingTips>
+        <multiplying>Seeds</multiplying>
+    </flower>
+</greenhouse>
