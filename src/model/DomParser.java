@@ -24,10 +24,9 @@ import org.w3c.dom.NodeList;
  * @author wookie
  */
 public class DomParser {
-    private Greenhouse greenhouse = new Greenhouse();
+    private Greenhouse greenhouse;
     
     public void parse( InputStream in) throws Exception {
-        //braiser = new ObjectFactory().createBrazier();
         greenhouse = new ObjectFactory().createGreenhouse();
         
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -40,67 +39,71 @@ public class DomParser {
         
         NodeList rootChilds =  root.getChildNodes();
      
-        //NodeList flowers = root.getElementsByTagName("flower");
         
         for( int i = 0 ; i< rootChilds.getLength() ; i++) {
-            Flower flowerInstance = new Flower();
+            Flower flowerInstance = new ObjectFactory().createGreenhouseFlower();
             Node node = rootChilds.item(i);
 
                 if( node.getNodeType() == Node.ELEMENT_NODE ) {
                     Element flower = (Element) node;
-                    String name = flower.getNodeName();
-                    //System.out.println("Name:" + name);
                     
                     NodeList rootFlower = flower.getChildNodes();
                     for( int j = 0 ; j< rootFlower.getLength() ; j++) {
                         Node nodeFlower = rootFlower.item(j);
                         if( nodeFlower.getNodeType() == Node.ELEMENT_NODE ){
                             Element flowerElem = (Element) nodeFlower;
-                            //System.out.println("Name2:" + flowerElem.getNodeName());
-                            //System.out.println("Name3:" + flowerElem.getTextContent());
-                            if("name".equals(flowerElem.getNodeName())) {
-                                flowerInstance.setName(flowerElem.getFirstChild().getNodeValue());
-                            } 
-                            else if("soil".equals(flowerElem.getNodeName())) {
-                                flowerInstance.setSoil(flowerElem.getFirstChild().getNodeValue());
-                            }
-                            else if("origin".equals(flowerElem.getNodeName())) {
-                                flowerInstance.setOrigin(flowerElem.getFirstChild().getNodeValue());
-                            }
-                            else if("multiplying".equals(flowerElem.getNodeName())) {
-                                flowerInstance.setMultiplying(flowerElem.getFirstChild().getNodeValue());
-                            }
-                            else if("visualParameters".equals(flowerElem.getNodeName())) {
-                                flowerInstance.setVisualParameters(parseVisualParameters(flowerElem));
-                            }
-                            else if("growingTips".equals(flowerElem.getNodeName())) {
-                                flowerInstance.setGrowingTips(parseGrowingTips(flowerElem));
+                            if(null != flowerElem.getNodeName()) 
+                            switch (flowerElem.getNodeName()) {
+                                case Constants.FIELD_NAME:
+                                    flowerInstance.setName(flowerElem.getFirstChild().getNodeValue());
+                                    break;
+                                case Constants.FIELD_SOIL:
+                                    flowerInstance.setSoil(flowerElem.getFirstChild().getNodeValue());
+                                    break;
+                                case Constants.FIELD_ORIGIN:
+                                    flowerInstance.setOrigin(flowerElem.getFirstChild().getNodeValue());
+                                    break;
+                                case Constants.FIELD_MULTIPLYING:
+                                    flowerInstance.setMultiplying(flowerElem.getFirstChild().getNodeValue());
+                                    break;
+                                case Constants.FIELD_VISUAL_PARAMETERS:
+                                    flowerInstance.setVisualParameters(parseVisualParameters(flowerElem));
+                                    break;
+                                case Constants.FIELD_GROWING_TIPS:
+                                    flowerInstance.setGrowingTips(parseGrowingTips(flowerElem));
+                                    break;
+                                default:
+                                    break;
                             }
                         }
                     }
                     
-                   greenhouse.addFlower(flowerInstance);
+                   greenhouse.getFlower().add(flowerInstance);
                 }  
       
         } 
     }
 
     private VisualParameters parseVisualParameters(Element el) {
-        VisualParameters visualParam = new VisualParameters();
+        VisualParameters visualParam = new ObjectFactory().createGreenhouseFlowerVisualParameters();
            
         NodeList childs = el.getChildNodes();
         for( int i = 0; i< childs.getLength(); i++){
             Node item = childs.item(i);
             if( item.getNodeType() == Node.ELEMENT_NODE ){
                 Element elem = (Element) item;
-                if("stemColor".equals(elem.getNodeName( )) ){
-                    visualParam.setStemColor(elem.getFirstChild().getNodeValue());
-                }
-                else if("leafColor".equals(elem.getNodeName())) {
-                    visualParam.setLeafColor(elem.getFirstChild().getNodeValue());
-                }
-                else if("size".equals(elem.getNodeName())) {
-                    visualParam.setSize(elem.getFirstChild().getNodeValue());
+                if(null != elem.getNodeName()) switch (elem.getNodeName()) {
+                    case Constants.FIELD_STEM_COLOR:
+                        visualParam.setStemColor(elem.getFirstChild().getNodeValue());
+                        break;
+                    case Constants.FIELD_LEAF_COLOR:
+                        visualParam.setLeafColor(elem.getFirstChild().getNodeValue());
+                        break;
+                    case Constants.FIELD_SIZE:
+                        visualParam.setSize(elem.getFirstChild().getNodeValue());
+                        break;
+                    default:
+                        break;
                 }
             }
         }
@@ -108,59 +111,30 @@ public class DomParser {
     }
     
     private GrowingTips parseGrowingTips(Element el) {
-         GrowingTips growingTips = new GrowingTips();
+         GrowingTips growingTips = new ObjectFactory().createGreenhouseFlowerGrowingTips();
            
         NodeList childs = el.getChildNodes();
         for( int i = 0; i< childs.getLength(); i++){
             Node item = childs.item(i);
             if( item.getNodeType() == Node.ELEMENT_NODE ){
                 Element elem = (Element) item;
-                if("temperature".equals(elem.getNodeName( )) ){
-                    growingTips.setTemperature(Integer.parseInt(elem.getFirstChild().getNodeValue()));
-                }
-                else if("lighting".equals(elem.getNodeName())) {
-                    growingTips.setLighting(elem.getFirstChild().getNodeValue());
-                }
-                else if("watering".equals(elem.getNodeName())) {
-                    growingTips.setWatering(Integer.parseInt(elem.getFirstChild().getNodeValue()));
+                if(null != elem.getNodeName()) switch (elem.getNodeName()) {
+                    case Constants.FIELD_TEMPERATURE:
+                        growingTips.setTemperature(Integer.parseInt(elem.getFirstChild().getNodeValue()));
+                        break;
+                    case Constants.FIELD_LIGHTING:
+                        growingTips.setLighting(elem.getFirstChild().getNodeValue());
+                        break;
+                    case Constants.FIELD_WATERING:
+                        growingTips.setWatering(Integer.parseInt(elem.getFirstChild().getNodeValue()));
+                        break;
+                    default:
+                        break;
                 }
             }
         }
         return growingTips;
     }
-    
-    
-//    private Fuel parseFuel(Element el) {
-//        Fuel fuel = new Brazier.Fuel();
-//        NodeList childs = el.getChildNodes();
-//        for( int i = 0; i< childs.getLength(); i++){
-//            Node item = childs.item(i);
-//            if( item.getNodeType() == Node.ELEMENT_NODE ){
-//                Element elem = (Element) item;
-//                if( "type".equals(elem.getNodeName( )) ){
-//                    fuel.setType(elem.getFirstChild().getNodeValue());
-//                }else if("weigth".equals(elem.getNodeName())) {
-//                    fuel.setWeigth( Float.parseFloat(elem.getFirstChild().getNodeValue()) );
-//                }
-//            }
-//        }
-//        return fuel;
-//    }
-//
-//    private List<Skewer> parseSkewers(Element el) {
-//        List<Skewer> list = new ArrayList<>();
-//        NodeList skewers = el.getElementsByTagName("skewer");
-//        for( int i=0; i<skewers.getLength(); i++ ){
-//            Element skewerEl = (Element) skewers.item(i);
-//            Skewer skewer = new Skewer();
-//            skewer.setId( Integer.parseInt(skewerEl.getAttribute("id")) );
-//            skewer.setMeet( skewerEl.getElementsByTagName("meet").item(0).getTextContent() );
-//            skewer.setWeight( 
-//                    Integer.parseInt( skewerEl.getElementsByTagName("weight").item(0).getTextContent()) );
-//            list.add(skewer);
-//        }
-//        return list;
-//    }
 
     public Greenhouse getGreenhouse() {
         return greenhouse;
