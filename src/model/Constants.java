@@ -9,8 +9,7 @@ package model;
  * Interface contains constant values.
  * @author wookie
  */
-public interface Constants {
-    
+public interface Constants {   
    public static final String FIELD_NAME = "name";
    public static final String FIELD_SOIL = "soil";
    public static final String FIELD_ORIGIN = "origin";

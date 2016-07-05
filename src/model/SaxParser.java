@@ -150,8 +150,6 @@ public class SaxParser {
         SaxHandler contentHandler = new SaxHandler();
         reader.setContentHandler(contentHandler);
         reader.parse(new InputSource(in));
-        
-        System.out.println(greenhouse);
     }
 
     public Greenhouse getGreenhouse() {
