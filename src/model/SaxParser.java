@@ -27,9 +27,11 @@ public class SaxParser {
     /**
      * temp value which handle current text value of XML tag.
      */
-    private String temp;
+    private String temp; 
     
-    
+    /**
+     * Class implements ContentHandler to use with XMLReader. 
+     */
     class SaxHandler implements ContentHandler {
 
         @Override
