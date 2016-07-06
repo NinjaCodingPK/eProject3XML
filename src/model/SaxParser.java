@@ -19,10 +19,10 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
 /**
- *
+ * Class provides method for parse XML file using SAX parser.
  * @author wookie
  */
-public class SaxParser {
+public class SaxParser implements MyParser {
     protected Greenhouse greenhouse;
     /**
      * temp value which handle current text value of XML tag.
@@ -146,6 +146,7 @@ public class SaxParser {
      * @param in InputStram of XML file.
      * @throws Exception 
      */
+    @Override
     public void parse( InputStream in ) throws Exception{
         XMLReader reader = XMLReaderFactory.createXMLReader();
         SaxHandler contentHandler = new SaxHandler();
@@ -153,6 +154,7 @@ public class SaxParser {
         reader.parse(new InputSource(in));
     }
 
+    @Override
     public Greenhouse getGreenhouse() {
         return greenhouse;
     }

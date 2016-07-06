@@ -18,14 +18,19 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 /**
- * Class implements StAX parser using ContentHandler from SAX parser.
+ * Class provides method for parse XML file using StAX parser.
  * @author wookie
  */
-public class StaxParser extends SaxParser{
+public class StaxParser extends SaxParser implements MyParser {
 
    class StaxHandler extends SaxHandler {
-        //@Override
-        public void startElement(String uri, String localName, String qName, String atts) throws SAXException {
+        /**
+         * Override method from SaxHandler to work with XMLStreamReader.
+         * @param localName name of tag.
+         * @param atts attribute of tag.
+         * @throws SAXException 
+         */
+        public void startElement(String localName, String atts) throws SAXException {
            switch (localName) {
                 case Constants.FIELD_FLOWER:
                     Greenhouse.Flower flower = new ObjectFactory().createGreenhouseFlower();
@@ -65,7 +70,7 @@ public class StaxParser extends SaxParser{
                     handler.startDocument();
                     break;
                 case XMLStreamConstants.START_ELEMENT: 
-                    handler.startElement(null, r.getName().toString(), null, r.getAttributeValue(null, "id"));
+                    handler.startElement(r.getName().toString(), r.getAttributeValue(null, "id"));
                     break;
                 case XMLStreamConstants.CHARACTERS:
                     if (!r.isWhiteSpace())

@@ -23,10 +23,10 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 /**
- * Class implements DOM parser of XML file.
+ * Class provides method for parse XML file using DOM parser.
  * @author wookie
  */
-public class DomParser {
+public class DomParser implements MyParser {
     private Greenhouse greenhouse;
     
     /**
@@ -36,6 +36,7 @@ public class DomParser {
      * @throws org.xml.sax.SAXException 
      * @throws java.io.IOException 
      */
+    @Override
     public void parse(InputStream in) throws ParserConfigurationException, SAXException, IOException  {
         greenhouse = new ObjectFactory().createGreenhouse();
         
@@ -157,6 +158,7 @@ public class DomParser {
         return growingTips;
     }
 
+    @Override
     public Greenhouse getGreenhouse() {
         return greenhouse;
     }
