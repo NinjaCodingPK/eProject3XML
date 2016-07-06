@@ -50,17 +50,18 @@ public class DomParser {
         NodeList rootChilds =  root.getChildNodes();
      
         
-        for( int i = 0 ; i< rootChilds.getLength() ; i++) {
-            Flower flowerInstance = new ObjectFactory().createGreenhouseFlower();
+        for(int i = 0 ; i< rootChilds.getLength() ; i++) {
+            Flower flowerInstance;
             Node node = rootChilds.item(i);
 
-                if( node.getNodeType() == Node.ELEMENT_NODE ) {
+                if(node.getNodeType() == Node.ELEMENT_NODE ) {
+                    flowerInstance = new ObjectFactory().createGreenhouseFlower();
                     Element flower = (Element) node;
-                    
+                    flowerInstance.setId(Byte.parseByte(flower.getAttribute("id")));
                     NodeList rootFlower = flower.getChildNodes();
-                    for( int j = 0 ; j< rootFlower.getLength() ; j++) {
+                    for(int j = 0 ; j< rootFlower.getLength() ; j++) {
                         Node nodeFlower = rootFlower.item(j);
-                        if( nodeFlower.getNodeType() == Node.ELEMENT_NODE ){
+                        if(nodeFlower.getNodeType() == Node.ELEMENT_NODE ){
                             Element flowerElem = (Element) nodeFlower;
                             if(null != flowerElem.getNodeName()) 
                             switch (flowerElem.getNodeName()) {

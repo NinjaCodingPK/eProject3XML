@@ -23,7 +23,7 @@ import org.xml.sax.helpers.XMLReaderFactory;
  * @author wookie
  */
 public class SaxParser {
-    private Greenhouse greenhouse;
+    protected Greenhouse greenhouse;
     /**
      * temp value which handle current text value of XML tag.
      */
@@ -63,7 +63,8 @@ public class SaxParser {
         public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
             switch (localName) {
                 case Constants.FIELD_FLOWER:
-                    Greenhouse.Flower flower = new Greenhouse.Flower();
+                    Greenhouse.Flower flower = new ObjectFactory().createGreenhouseFlower();
+                    flower.setId(Byte.parseByte(atts.getValue("id")));
                     greenhouse.getFlower().add(flower);
                     break;
                 case Constants.FIELD_VISUAL_PARAMETERS:

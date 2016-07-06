@@ -47,20 +47,20 @@ public class Epam3XML {
         DomParser dom = new DomParser();
         dom.parse(new FileInputStream(filename));
         Greenhouse greenhouse = dom.getGreenhouse();
-        System.out.println(greenhouse.getFlower().get(0).getGrowingTips().getLighting());
+        System.out.println(greenhouse.getFlower().get(1).getId());
         
-        System.out.println("SAX");
-        SaxParser sax = new SaxParser();
-        sax.parse(new FileInputStream(filename));
-        greenhouse = sax.getGreenhouse();
-        System.out.println(greenhouse.getFlower().get(0).getName());
+//        System.out.println("SAX");
+//        SaxParser sax = new SaxParser();
+//        sax.parse(new FileInputStream(filename));
+//        greenhouse = sax.getGreenhouse();
+//        System.out.println(greenhouse.getFlower().get(0).getId());
 
         System.out.println("STAX");
         StaxParser stax = new StaxParser();
         stax.parse(new FileInputStream(filename));
         greenhouse = stax.getGreenhouse();
         System.out.println(greenhouse.getFlower().get(1).getName());   
-        System.out.println(greenhouse.getFlower().get(0).getGrowingTips().getLighting());
+        System.out.println(greenhouse.getFlower().get(1).getId());
             
         
 //        runParsers(filename);
